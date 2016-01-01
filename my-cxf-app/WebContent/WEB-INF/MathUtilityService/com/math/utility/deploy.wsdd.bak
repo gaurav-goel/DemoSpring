@@ -1,0 +1,33 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MathUtilityService WSDL service -->
+
+  <service name="MathUtility" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://utility.math.com"/>
+      <parameter name="wsdlServiceElement" value="MathUtilityService"/>
+      <parameter name="schemaQualified" value="http://utility.math.com"/>
+      <parameter name="wsdlServicePort" value="MathUtility"/>
+      <parameter name="className" value="com.math.utility.MathUtilitySoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="MathUtility"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addIntegers" qname="operNS:addIntegers" xmlns:operNS="http://utility.math.com" returnQName="retNS:addIntegersReturn" xmlns:retNS="http://utility.math.com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:firstNum" xmlns:pns="http://utility.math.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:secondNum" xmlns:pns="http://utility.math.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="factorial" qname="operNS:factorial" xmlns:operNS="http://utility.math.com" returnQName="retNS:factorialReturn" xmlns:retNS="http://utility.math.com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:n" xmlns:pns="http://utility.math.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="factorial addIntegers"/>
+
+  </service>
+</deployment>
